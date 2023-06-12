@@ -97,28 +97,65 @@ console.log(mapWith([1, 2, 3], addTwo));
  * Create a function called reduce that takes an array and reduces the elements to a
  * single value. For example it can sum all the numbers, multiply them, or any operation
  * that you can put into a function.
- */
-function reduce(array, callback, initialValue) {
-  return array.reduce(callback, initialValue);
-}
-console.log(reduce([1, 2, 3], addTwo, 2));
+ * 
 
+ * 
+*/
+function reduce(array, callback, initialValue) {
+  let accumulatorValue = initialValue;
+
+  for (const element of array) {
+    accumulatorValue = callback(accumulatorValue, element);
+  }
+  return accumulatorValue;
+}
+
+/**
+ *  * Here's how it works. The function has an "accumulator value" which starts as the initialValue and accumulates the output of each loop. 
+
+The array is iterated over, passing the accumulator and the next array element as arguments to the callback. 
+The callback's return value becomes the new accumulator value. The next loop executes with this new accumulator value. In the example above, the accumulator begins at 0. add(0,4) is called. The accumulator's value is now 4. Then add(4, 1) to make it 5. Finally add(5, 3) brings it to 8, which is returned.
+*/
 const nums = [4, 1, 3];
 const add = function (a, b) {
   return a + b;
 };
-reduce(nums, add, 0); //-> 8
+console.log(reduce(nums, add, 0)); //-> 8
 
 // Challenge 7
-function intersection(arrays) {}
+/**
+ * Construct a function intersection that takes in an array of arrays, compares the inner arrays, and returns a new array with elements found in all of them. BONUS: Use reduce!
+ */
+function intersection(arrays) {
+  return arrays.reduce((firstArray, secondArray) =>
+    firstArray.filter((element) => secondArray.includes(element))
+  );
+}
 
-// console.log(intersection([[5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]]));
+console.log(
+  intersection([
+    [5, 10, 15, 20],
+    [15, 88, 1, 5, 7],
+    [1, 10, 15, 5, 20],
+  ])
+);
 // should log: [5, 15]
 
 // Challenge 8
-function union(arrays) {}
+/**
+ * Construct a function union that takes in an array of arrays, compares the inner arrays, and returns a new array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first array. BONUS: Use reduce!
+ */
+function union(arrays) {
+  return [...new Set([].concat(...arrays))];
+}
 
-// console.log(union([[5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]]));
+console.log(
+  union([
+    [5, 10, 15],
+    [15, 88, 1, 5, 7],
+    [100, 15, 10, 1, 5],
+  ])
+);
 // should log: [5, 10, 15, 88, 1, 7, 100]
 
 // Challenge 9
