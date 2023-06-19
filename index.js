@@ -1,5 +1,290 @@
+/**
+ * My Notes and exercises from JavaScript the Hard Parts course
+ *
+ * @author Jose Miguel Bonilla Silió
+ * @link https://www.jmbs.es/
+ * @link https://frontendmasters.com/courses/javascript-hard-parts
+ */
 // Type JavaScript here and click "Run Code" or press Ctrl + s
 console.log('Hello, world!');
+
+/**
+ * Global Execution Context
+ *
+ * @link https://frontendmasters.com/courses/javascript-hard-parts/global-execution-context/
+ *
+ */
+
+// What happens when JS executes (run) my code?
+/**
+ *   It is executed/ processed line by line
+ * Assign data to memory labeled by their names, so data is accesible by their names (variables, constants, functions)
+ *
+ * As soon as we start running our code, we create a Global Execution Context:
+ *  - Thread of the execution (parsing and executing the code line after line)
+ *  - Live memory of variables with data (known as Global Variable Environment)
+ *
+ * The thread in JS:
+ *  - Single threaded (one thing at a time)
+ *  - Synchronous execution (for now)
+ */
+// 1st) In the *** Global Memory ****, stores 3 in the constant named num
+const num = 3;
+// 2nd) In the Global Memory, stores F (function) named multiplyByTwo
+function multiplyByTwo(inputNumber) {
+  // Define the function with the name function
+  const result = inputNumber * 2;
+  return result;
+}
+// 3rd) In the Global Memory, stores Jose Miguel Bonilla Silioin the name constant
+const name = 'Jose Miguel Bonilla Silio';
+/**
+ * When we execute a function we create a new Execution Context comprising:
+ *  1. The thread of execution (we go through the code in the function line by line)
+ *  2. A *** local memory *** (Variable environment) where anything defined in the function is stored
+ *
+ * To call a function we use the function name and parenthesis()
+ */
+
+// 4th) In the Global Memory, first stores undefined the output constant,
+// then run the function with the input of 4 multiplyByTwo(4) and assign the result to output
+const output = multiplyByTwo(4);
+/**
+ *  5th)
+ *  When we execute a function we create a new Local Execution Context
+ * 
+ function multiplyByTwo(inputNumber) {
+  const result = inputNumber * 2;
+  return result;
+}
+ * 
+ * *** Local Memory ***
+ *  inputNumber = 4  In the Local Memory, stores 4 in inputNumber variable
+ *  result = 8   In the Local Memory, stores 8 in result constant
+ *  we return the result value and assign it to output in the Global Memory
+ */
+
+// So JS does not run the next line until the previous function is executed.
+// 6th) In the Global Memory, first stores undefined the newOutput constant,
+/**
+ *  we create a new Local Execution Context
+ * With new Local Memory (Environment Memory)
+ *  inputNumber = 10  In the Local Memory, stores 10 in inputNumber variable
+ *  result = 20   In the Local Memory, stores 20 in result constant
+ *  we return the result value and assign it to newOutput in the Global Memory
+ *
+ *
+ */
+const newOutput = multiplyByTwo(10);
+
+/**
+ * Call Stack
+ *
+ *  Let us know where we are, which line or function are we running
+ *
+ * 1st) It adds the Global global()
+ * 2st) the following thin executed is added to the top of the Call Stack eg:  multiplyByTwo(4)
+ * LIFO last inpunt first ouput, meaning that the last thing we added is the first thing going out
+ * JS knows where it is executing, looking at the top of the call stack
+ * 3rd) When  multiplyByTwo(4) is returned to the global output,  multiplyByTwo(4) is deleted from the call stack (it goes out)  Last in, First out
+ * 4th) when we execute multiplyByTwo(10) is pushed to the top of the Call Stack
+ * When the function finishes
+ * - asign the return valut to newOutput
+ * - its local execution context is closed
+ * - removed(popped) from the call stack
+ * - and call stack return to global()
+ *
+ * Summary:
+ * We keep track of the functions being called in JS with a Call Stack
+ *
+ * Tracks wich execution context we are in (what function is currently being run) and where to return to after the execution context is popped off the stack.
+ *
+ * One global execution context, multiple function contexts
+ */
+
+/**
+ * The implicit return of any function is void
+ * It is the default when there is not return declared in the function
+ *
+ * function fucntionName():void {
+ *    console.log('It has not got the return keyword');
+ * }
+ */
+
+console.log(multiplyByTwo);
+/** 
+ * Will show the whole funcion in the console 
+ * ƒ multiplyByTwo()
+name: "multiplyByTwo"
+<prototype>: Function
+ */
+
+/**
+ * JS today uses JIT Just In Time compilation that makes some optimizations
+ */
+
+/**
+ * Functional programming
+ * @link https://frontendmasters.com/courses/javascript-hard-parts/pure-functions/
+ *
+ * It is a programming paradigm (how we write our code and scales)
+ * @see https://en.wikipedia.org/wiki/Functional_programming
+ * The most popular programming paradigm is OOP (Object Oriented Programming)
+ *
+ * Functional programming: Functions are 1st class citizens
+ *   1. Pure functions  (no side effects): When I run a function its only consequence is the return value, it does not mutate the global
+ *   2. Higher order functions, highly valuable tool
+ */
+
+/**
+ * Higher order functions
+ * Basically, a function which takes another function as an argument or returns a function is known as a higher order function.
+ *
+ * With a brief exercise, Will reviews high order functions by examining the programming concept of Don't Repeat Yourself (DRY), which is a principle of software development aimed at reducing code repetition by making the code more re-usable.
+ *
+ * Create a function 10 squared
+ * Takes no input
+ * returns 10 * 10
+ *
+ * How we do it?
+ */
+function tenSquared() {
+  return 10 * 10;
+}
+console.log(tenSquared());
+/**
+ *  This function violates the DRY Don't Repeat Yourself principle,
+ *  if we want to calculate other squares we should repeat the code changing the number
+ * so we can generalise the function to pass any number as parameter
+ */
+function squareNum(num) {
+  return num * num;
+}
+console.log(squareNum(10));
+console.log(squareNum(9));
+console.log(squareNum(5));
+
+/**
+ * Pair programming 
+ * @see https://frontendmasters.com/courses/javascript-hard-parts/setting-up-pair-programming/
+ * 
+ * Answer these:
+ * 1. I know what a variable is:
+ *  - A variable is a container for a value, like a number we might use in a sum, or a string that we might use as part of a sentence. A variable can contain just about anything — not just strings and numbers. Variables can also contain complex data and even entire functions
+ * @link https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Variables
+ * 
+ * 2. I have created a function before
+ * - // Declaration
+      function multiply(x, y) {
+        return x * y;
+      } // No need for semicolon here
+
+      // Arrow function
+      
+      const multiply = (x, y) => x * y;
+      @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
+
+  3. I have added CSS style before
+ */
+document.getElementById('app').classList.add('added');
+
+/**
+ * 4. I have implemented a sort algorithm
+ * - Bubble
+ * Bubble sort algorithm is an algorithm that sorts an array by comparing two adjacent elements and swapping them if they are not in the intended order. Here order can be anything like increasing asc(default) or decreasing.
+ */
+
+function bubbleSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let isSwapped = false;
+
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j] > arr[j + 1]) {
+        const temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+        isSwapped = true;
+      }
+    }
+
+    // IF no two elements were swapped
+    // by inner loop, then break
+    if (!isSwapped) {
+      break;
+    }
+  }
+
+  // Return the sorted array
+  // console.log(arr);
+  return arr;
+}
+
+const arr = [243, 45, 23, 356, 3, 5346, 35, 5];
+
+// calling the bubbleSort Function
+console.log(bubbleSort(arr));
+console.log(bubbleSort([6, 1, 2, 5, -2, 3]));
+
+function mergeArrays(leftSubArray, rightSubArray) {
+  let array = [];
+  while (leftSubArray.length && rightSubArray.length) {
+    if (leftSubArray[0] < rightSubArray[0]) {
+      array.push(leftSubArray.shift());
+    } else {
+      array.push(rightSubArray.shift());
+    }
+  }
+  return [...array, ...leftSubArray, ...rightSubArray];
+}
+
+/**
+ * Declare an array, left index, right index and middle variable.
+
+Perform the merge sorting.
+mergesort(array, left index, right index)
+if left index > right index
+return
+mid= (left index + right index) / 2
+
+mergesort(array, left index, mid) // First half
+mergesort(array, mid+1, right index) // Second half
+
+merge(array, left index, mid, right index) // merge two halfes sorted in above steps
+ */
+function mergeSort(unsortedArray) {
+  if (unsortedArray.length < 2) {
+    return unsortedArray;
+  }
+  const middleIndex = unsortedArray.length / 2;
+  const leftSubArray = unsortedArray.splice(0, middleIndex);
+  return mergeArrays(mergeSort(leftSubArray), mergeSort(unsortedArray));
+}
+unsortedArray = [39, 28, 44, 4, 10, 83, 11];
+console.log('The sorted array will be: ', mergeSort(unsortedArray));
+
+function quickSort(unsortedArray) {
+  if (unsortedArray.length <= 1) {
+    return unsortedArray;
+  } else {
+    const left = [];
+    const right = [];
+    const newArray = [];
+    const pivot = unsortedArray.pop();
+    const length = unsortedArray.length;
+
+    for (var i = 0; i < length; i++) {
+      if (unsortedArray[i] <= pivot) {
+        left.push(unsortedArray[i]);
+      } else {
+        right.push(unsortedArray[i]);
+      }
+    }
+    return newArray.concat(quickSort(left), pivot, quickSort(right));
+  }
+}
+const myArray = [13, 50, 45, -1, 74, 11, 78, 5];
+const arreySorted = quickSort(myArray);
+console.log(arreySorted);
 
 // Challenge 1
 /**
@@ -46,13 +331,13 @@ function map(array, callback) {
 
 console.log(map([1, 2, 3], addTwo));
 
-function multiplyByTwo(num) {
+function multiplyByTwoOtherWay(num) {
   return num * 2;
 }
 
-console.log(map([1, 2, 3, 4, 5], multiplyByTwo)); //-> [2,4,6,8,10]
-console.log(multiplyByTwo(1)); //-> 2
-console.log(multiplyByTwo(2)); //-> 4
+console.log(map([1, 2, 3, 4, 5], multiplyByTwoOtherWay)); //-> [2,4,6,8,10]
+console.log(multiplyByTwoOtherWay(1)); //-> 2
+console.log(multiplyByTwoOtherWay(2)); //-> 4
 
 // Challenge 4
 /**
@@ -161,7 +446,15 @@ console.log(
 // Challenge 9
 function objOfMatches(array1, array2, callback) {}
 
-// console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
+// console.log(
+//   objOfMatches(
+//     ['hi', 'howdy', 'bye', 'later', 'hello'],
+//     ['HI', 'Howdy', 'BYE', 'LATER', 'hello'],
+//     function (str) {
+//       return str.toUpperCase();
+//     }
+//   )
+// );
 // should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
 
 // Challenge 10
