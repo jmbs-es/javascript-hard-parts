@@ -286,6 +286,23 @@ const myArray = [13, 50, 45, -1, 74, 11, 78, 5];
 const arreySorted = quickSort(myArray);
 console.log(arreySorted);
 
+/**
+ * 5. I can add a method to an object's prototype
+ * 
+ * Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+ * 
+ * @link https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
+ */
+ const myObject = {
+  city: "Málaga",
+  greet() {
+    console.log(`Greetings from ${this.city}`);
+  },
+};
+
+myObject.greet(); // Greetings from Madrid
+
+
 // Challenge 1
 /**
  * Create a function addTwo that accepts one input and adds 2 to it.
