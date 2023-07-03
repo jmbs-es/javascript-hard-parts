@@ -288,20 +288,19 @@ console.log(arreySorted);
 
 /**
  * 5. I can add a method to an object's prototype
- * 
+ *
  * Prototypes are the mechanism by which JavaScript objects inherit features from one another.
- * 
+ *
  * @link https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
  */
- const myObject = {
-  city: "Málaga",
+const myObject = {
+  city: 'Málaga',
   greet() {
     console.log(`Greetings from ${this.city}`);
   },
 };
 
 myObject.greet(); // Greetings from Madrid
-
 
 // Challenge 1
 /**
@@ -633,3 +632,46 @@ function addToSum(num) {
 // const nums = [1, 2, 3];
 // myForEach(nums, addToSum);
 // console.log(sum); // Should output 6
+
+// Other challange in JS
+
+function representateNumberLikeString(num) {
+  const stringArray = [];
+  for (let n = 1; n <= num; n++) {
+    if (n % 3 && n % 5) {
+      stringArray.push(n.toString());
+    } else {
+      if (n % 3 == 0 && n % 5 == 0) {
+        stringArray.push('FizzBuzz');
+      } else if (n % 3 == 0) {
+        stringArray.push('Fizz');
+      } else if (n % 5 == 0) {
+        stringArray.push('Buzz');
+      }
+    }
+  }
+  return stringArray;
+}
+
+console.log(representateNumberLikeString(15));
+
+const longestConsecutiveElementsSequence = (arr) => {
+  const elementsArray = new Set(arr);
+  let output = 1;
+
+  for (let elements of arr) {
+    // check if the current array element starts a new subsequence
+    if (!elementsArray.has(elements - 1)) {
+      let subsequenceLength = 1;
+
+      while (elementsArray.has(elements + subsequenceLength)) {
+        subsequenceLength++;
+      }
+      output = Math.max(output, subsequenceLength);
+    }
+  }
+  return output;
+};
+
+const input = [100, 4, 200, 1, 3, 2];
+console.log(longestConsecutiveElementsSequence(input));
