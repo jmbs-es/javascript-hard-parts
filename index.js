@@ -131,8 +131,10 @@ name: "multiplyByTwo"
  * @see https://en.wikipedia.org/wiki/Functional_programming
  * The most popular programming paradigm is OOP (Object Oriented Programming)
  *
- * Functional programming: Functions are 1st class citizens
- *   1. Pure functions  (no side effects): When I run a function its only consequence is the return value, it does not mutate the global
+ * Functional programming: Functions are 1st class citizens:
+ *
+ *   1. Pure functions  (no side effects): When I run a function its only consequence is the return value, it does not mutate the global memmory.
+ *
  *   2. Higher order functions, highly valuable tool
  */
 
@@ -151,18 +153,19 @@ name: "multiplyByTwo"
 function tenSquared() {
   return 10 * 10;
 }
-console.log(tenSquared());
+console.log(tenSquared()); // 100
 /**
- *  This function violates the DRY Don't Repeat Yourself principle,
+ *  This function tenSquared() violates the DRY Don't Repeat Yourself principle,
+ *
  *  if we want to calculate other squares we should repeat the code changing the number
  * so we can generalise the function to pass any number as parameter
  */
 function squareNum(num) {
   return num * num;
 }
-console.log(squareNum(10));
-console.log(squareNum(9));
-console.log(squareNum(5));
+console.log(squareNum(10)); // 100
+console.log(squareNum(9)); // 81
+console.log(squareNum(5)); // 25
 
 /**
  * Pair programming 
@@ -299,8 +302,34 @@ const myObject = {
     console.log(`Greetings from ${this.city}`);
   },
 };
+myObject.greet(); // Greetings from Málaga
 
-myObject.greet(); // Greetings from Madrid
+/**
+ *
+ * 6. I undertstand the event loop in JS
+ *
+ */
+
+/**
+ *
+ * 7. I undertstand callback functions
+ *
+ */
+
+/**
+ *
+ * 8. I've build a project in React or Angular
+ * Angular for Aareon:
+ * - Digital Agency (Search Portal for rent and buy)
+ * - Customer Service Portal (classified ads with links and statistics)
+ * - Wodis Yuneo
+ */
+
+/**
+ *
+ * 9. I can handle collisions in hash tables
+ *
+ */
 
 // Challenge 1
 /**
